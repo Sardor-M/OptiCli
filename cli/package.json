@@ -2,12 +2,24 @@
   "name": "cli",
   "version": "1.0.0",
   "main": "index.js",
-  "bin": "./bin/index.js",
+  "bin": {
+    "cli": "./bin/cli"
+  },
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "cli": {
+    "port": 9999
+  },
+  "description": "",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "chalk": "^5.3.0",
+    "cosmiconfig": "^9.0.0",
+    "pkg-up": "^3.1.0"
+  }
 }

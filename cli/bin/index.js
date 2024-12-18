@@ -3,9 +3,10 @@
 // index.js file content
 // console.log(process.argv);
 
-// node ning built-in bo'lgan arg cli parserni ishlatamiz
-const arg = require("arg");
-
+import arg from "arg"; // node ning built-in bo'lgan arg cli parserni ishlatamiz
+import chalk from "chalk"; // chalk libray esa rang berish uchun ishlatamiz
+import { getConfig } from "../src/config/config-mgr.js";
+import { start } from "../src/commands/start.js";
 // bu yerda biz node ning process.env propertysidan foydalanamiz
 // birinchi qismi 'node executable' array [] hisoblanadi va keyingisi esa execute
 // qiladigan fileni nomi bo'ladi va uchunchisidan boshlab esa argumentlar bo'ladi.
@@ -17,17 +18,19 @@ try {
   });
 
   if (args["--start"]) {
-    console.log("starting off the app:");
+    const config = getConfig();
+    start(config);
   }
 } catch (e) {
   // kutilmagan argumentlarni handle qilamiz
-  console.log(e.message);
+  console.log(chalk.yellow(e.message));
   console.log();
   usage();
 }
 
 function usage() {
-  console.log(`allowed commands [CMD]: 
-        --start\tStart the app
-        --build\tBuild the app`);
+  console.log(`${chalk.whiteBright("cli [CMD]")}:
+      ${chalk.greenBright("--start")}\tStart the app
+      ${chalk.greenBright("--build")}\tBuild the app
+  `);
 }
