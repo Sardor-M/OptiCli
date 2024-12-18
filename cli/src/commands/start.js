@@ -1,6 +1,6 @@
-import chalk from "chalk";
+import { logger } from "../../logger.js";
 
 export function start(config) {
-  console.log(chalk.bgCyanBright("Starting the app: "));
-  console.log(chalk.gray("Received configs in the start - "), config);
+  logger.highlight("Starting the app: ");
+  logger.debug("Received configs in the start - ", config);
 }
