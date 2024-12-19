@@ -24,6 +24,8 @@ try {
   if (args["--start"]) {
     const config = getConfig();
     start(config);
+  } else {
+    usage();
   }
 } catch (e) {
   // kutilmagan argumentlarni handle qilamiz
@@ -34,7 +36,7 @@ try {
 
 function usage() {
   console.log(`${chalk.whiteBright("cli [CMD]")}:
-      ${chalk.greenBright("--start")}\tStart the app
+      ${chalk.greenBright("--start")}\tStart the monitoring
       ${chalk.greenBright("--build")}\tBuild the app
   `);
 }
