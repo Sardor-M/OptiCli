@@ -1,4 +1,4 @@
-## cli_wiz
+## OptiCli
 
 I am working on project that will help developers to optimize and analzye their project's
 - security issues
