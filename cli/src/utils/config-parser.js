@@ -2,7 +2,7 @@ import fs, { existsSync } from "fs";
 
 export function detectConfig() {
   if (fs.existsSync("webpack.config.js")) return "webpack";
-  if (fs(existsSync("vite.config.js"))) return "vite";
+  if (fs.existsSync("vite.config.js")) return "vite";
   return null;
 }
 

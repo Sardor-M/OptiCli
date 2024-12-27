@@ -5,10 +5,8 @@
 import arg from "arg"; // node ning built-in bo'lgan arg cli parserni ishlatamiz
 import chalk from "chalk"; // chalk libray esa rang berish uchun ishlatamiz
 import { logger } from "../logger.js";
-
-// bu yerda biz node ning process.env propertysidan foydalanamiz
-// birinchi qismi 'node executable' array [] hisoblanadi va keyingisi esa execute
-// qiladigan fileni nomi bo'ladi va uchunchisidan boshlab esa argumentlar bo'ladi.
+import { analyze } from "../src/commands/test.js";
+import { audit } from "../src/commands/audit.js";
 
 async function main() {
   try {
@@ -31,7 +29,7 @@ async function main() {
       // start(config);
       usage();
       process.exit(0);
-    } else if ((cmd = "test")) {
+    } else if (cmd === "test") {
       await analyze();
     } else if (cmd === "audit") {
       await audit();
@@ -41,25 +39,34 @@ async function main() {
     }
   } catch (e) {
     // kutilmagan argumentlarni handle qilamiz
-    logger.warning(error.message);
+    logger.warning(e.message);
     console.log();
     usage();
   }
 }
 
 function usage() {
-  console.log(`${chalk.whiteBright("cli [CMD]")}:
-      ${chalk.greenBright("--start")}\tStart the monitoring
-      ${chalk.greenBright("--build")}\tBuild the app
+  console.log(`${chalk.whiteBright("opti-cli [command] [options]")}
+    ${chalk.greenBright("Commands:")}
+      test     \tRun full analysis (config, security, advanced checks, performance, etc.)
+      audit    \tRun NPM vulnerability audit only
+
+    ${chalk.greenBright("Options:")}
+      --help   \tShow usage information
+
+    Examples:
+      opti-cli test
+      opti-cli audit
   `);
-  console.log(
-    chalk.greenBright("--test"),
-    "\tRun full analysis (config, security, performance)"
-  );
-  console.log(chalk.greenBright("--audit"), "\tRun NPM vulnerability audit");
 }
 
 main().catch((error) => {
   logger.log("An unexpected error occured: ", error);
   process.exit(1);
 });
+
+
+
+// bu yerda biz node ning process.env propertysidan foydalanamiz
+// birinchi qismi 'node executable' array [] hisoblanadi va keyingisi esa execute
+// qiladigan fileni nomi bo'ladi va uchunchisidan boshlab esa argumentlar bo'ladi.
