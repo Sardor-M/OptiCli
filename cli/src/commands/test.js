@@ -2,7 +2,7 @@
 
 import { logger } from "../../logger.js";
 import { checkVulnerabilities } from "../utils/vulnerability-check.js";
-import rundBuildAndMeasure from "../utils/build-runner.js";
+import runBuildAndMeasure from "../utils/build-runner.js";
 import { generateSuggestions } from "../utils/suggestions.js";
 import { detectConfig, parseConfig } from "../utils/config-parser.js";
 
@@ -14,24 +14,30 @@ export async function analyze() {
     logger.warning("No Webpack or Vite config found. Exiting.");
     return;
   }
-
+  
+  console.log("Parsing config...");
   const config = await parseConfig(configType);
   logger.debug("Parsed config:", config);
 
+  console.log("Analyzing security headers...");
   // here we analyze security headers (when dev server starts)
   const securityFindings = analyzeSecurity(config, configType);
-  const vulnerabilities = await checkVulnerabilities();
 
+  const vulnerabilities = await checkVulnerabilities();
+  console.log("Vulnerabilities checked. Found:", vulnerabilities.length);
+
+  console.log("Running build and measuring performance...");
   // we measure the performance
-  const { buildTime, bundlSize, memoryUsage } = await rundBuildAndMeasure(
+  const { buildTime, bundleSizes, memoryUsage } = await runBuildAndMeasure(
     configType
   );
+  console.log("Build finished:", buildTime, bundleSizes, memoryUsage);
 
   const suggestions = generateSuggestions({
     securityFindings,
     vulnerabilities,
     buildTime,
-    bundlSize,
+    bundleSizes,
     memoryUsage,
   });
 
@@ -44,6 +50,8 @@ export async function analyze() {
     memoryUsage,
     suggestions,
   });
+
+  console.log("Analysis complete!");
 
   function analyzeSecurity(config, configType) {
     const findings = [];
@@ -84,11 +92,11 @@ export async function analyze() {
     console.log(`\nBuild Time: ${report.buildTime}ms`);
     console.log("Bundle Sizes:");
 
-    Object.entries(report.bundlSize).forEach((bundle, size) => {
+    Object.entries(report.bundleSizes).forEach((bundle, size) => {
       console.log(`- ${bundle}: ${(size / 1024).toFixed(2)} KB`);
     });
 
-    console.log(`Memorty Usage: ${report.memoryUsage} MB`);
+    console.log(`Memory Usage: ${report.memoryUsage} MB`);
 
     console.log("\nSuggestions:");
     if (report.suggestions.length > 0) {

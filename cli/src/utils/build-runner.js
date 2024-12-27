@@ -1,12 +1,12 @@
 import { spawn } from "child_process";
 
-export default function rundBuildAndMeasure(type) {
+export default function runBuildAndMeasure(type) {
   const startMem = process.memoryUsage().heapUsed;
   const startTime = Date.now();
 
-  let buildCmd = (type = "webpack"
+  let buildCmd = (type === "webpack"
     ? "npx webpack --mode production"
-    : "npx vide build");
+    : "npx vite build");
 
   return new Promise((resolve) => {
     const child = spawn(buildCmd, { shell: true });
