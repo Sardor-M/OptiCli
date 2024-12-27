@@ -6,7 +6,7 @@ export function detectConfig() {
   return null;
 }
 
-export async function pareseConfig() {
+export async function parseConfig() {
   let configFile =
     type === "webpack" ? "./webpack.config.js" : "./vite.config.js";
   const config = await import(`${process.cwd()}/${configFile}`);

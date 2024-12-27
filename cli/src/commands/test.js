@@ -1,12 +1,15 @@
 // this is where we analyze the project
-import { getConfig } from "../src/config/config-mgr.js";
 
 import { logger } from "../../logger.js";
+import { checkVulnerabilities } from "../utils/vulnerability-check.js";
+import rundBuildAndMeasure from "../utils/build-runner.js";
+import { generateSuggestions } from "../utils/suggestions.js";
+import { detectConfig, parseConfig } from "../utils/config-parser.js";
 
 export async function analyze() {
   logger.highlight("Starting analysis...");
 
-  const configType = getConfig();
+  const configType = detectConfig();
   if (!configType) {
     logger.warning("No Webpack or Vite config found. Exiting.");
     return;
@@ -32,6 +35,16 @@ export async function analyze() {
     memoryUsage,
   });
 
+  // we print the suggestions
+  printReport({
+    securityFindings,
+    vulnerabilities,
+    buildTime,
+    bundleSizes,
+    memoryUsage,
+    suggestions,
+  });
+
   function analyzeSecurity(config, configType) {
     const findings = [];
     if (configType === "webpack") {
@@ -41,7 +54,7 @@ export async function analyze() {
         );
       }
     } else {
-      if (!connfig.server || !config.server.headers) {
+      if (!config.server || !config.server.headers) {
         findings.push(
           "Missing security headers in Virte dev server. Consider adding headers or using HTTPS."
         );
