@@ -53,7 +53,7 @@ Please make sure you have vite or webpack installed on your system.
 Once you have vite or webpack installed, you can run `securely` test to analyze your project's health and check for security vulnerabilities.
 
 
-# Dependencies
+### Dependencies
 
 - **ajv**: Fast JSON Schema validator for validating data structures.
 - **better-ajv-errors**: Enhances AJV error messages for better readability.
@@ -64,14 +64,13 @@ Once you have vite or webpack installed, you can run `securely` test to analyze 
 - **pidusage**: Retrieves CPU and memory usage of a process.
 - **pkg-up**: Finds the nearest `package.json` file in the directory hierarchy.
 
-# DevDependencies
+### DevDependencies
 
 - **@babel/parser**: Parses JavaScript code into an Abstract Syntax Tree (AST).
 - **@babel/traverse**: Traverses and manipulates the AST for code analysis and transformation.
 
 
-
-## Project aims to keeps your project secure by:
+### Project aims to keeps your project secure by:
 
 - 🔍 Scanning for vulnerable dependencies
 - 📦 Suggesting package updates
