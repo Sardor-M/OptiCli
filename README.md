@@ -9,12 +9,9 @@ Securely is a CLI tool that helps developers to optimize and analyze their proje
 - Analyze your project's health,
 - Check for security vulnerabilities,
 - Optimize build performance,
-- Monitor resource usage,
-- Project Analysis,
 - Automatically detects your project type (Vite or Webpack) and provides insights about: 
     - Bundle sizes
     - Build times
-    - Performance metrics
     - Dependency health
     - Security Checks
 
@@ -76,7 +73,7 @@ Once you have vite or webpack installed, you can run `securely` test to analyze 
 
 ## Project aims to keeps your project secure by:
 
-- Scanning for vulnerable dependencies
-- Suggesting package updates
-- Providing security best practices
-- Monitoring npm audit results
+- 🔍 Scanning for vulnerable dependencies
+- 📦 Suggesting package updates
+- 📚 Providing security best practices
+- 📊 Monitoring npm audit results

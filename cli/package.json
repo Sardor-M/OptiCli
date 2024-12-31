@@ -1,6 +1,6 @@
 {
   "name": "securely",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "index.js",
   "bin": {
     "securely": "./bin/index.js"
@@ -17,6 +17,10 @@
     "port": 9999
   },
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sardor-M/Securely.git"
+  },
   "dependencies": {
     "ajv": "^8.17.1",
     "better-ajv-errors": "^1.2.0",
