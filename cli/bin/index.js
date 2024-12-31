@@ -7,6 +7,7 @@ import chalk from "chalk"; // chalk libray esa rang berish uchun ishlatamiz
 import { logger } from "../logger.js";
 import { analyze } from "../src/commands/test.js";
 import { audit } from "../src/commands/audit.js";
+import { secureCheck } from "../src/commands/secure-check.js";
 
 async function main() {
   try {
@@ -33,6 +34,8 @@ async function main() {
       await analyze();
     } else if (cmd === "audit") {
       await audit();
+    } else if (cmd === "secure-check"){
+      await secureCheck();
     } else {
       logger.warning(`Unkown command: ${cmd}`);
       usage();
@@ -48,8 +51,9 @@ async function main() {
 function usage() {
   console.log(`${chalk.whiteBright("opti-cli [command] [options]")}
     ${chalk.greenBright("Commands:")}
-      test     \tRun full analysis (config, security, advanced checks, performance, etc.)
-      audit    \tRun NPM vulnerability audit only
+      test              \tRun full analysis (config, security, advanced checks, performance, etc.)
+      audit             \tRun NPM vulnerability audit only
+      secure-check      \tRun Advanced security checks (AST scanning, environment usage)
 
     ${chalk.greenBright("Options:")}
       --help   \tShow usage information
@@ -57,6 +61,7 @@ function usage() {
     Examples:
       opti-cli test
       opti-cli audit
+      opti-cli secure-check  
   `);
 }
 
