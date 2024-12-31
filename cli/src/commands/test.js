@@ -14,7 +14,7 @@ export async function analyze() {
     logger.warning("No Webpack or Vite config found. Exiting.");
     return;
   }
-  
+
   console.log("Parsing config...");
   const config = await parseConfig(configType);
   logger.debug("Parsed config:", config);
@@ -72,7 +72,8 @@ export async function analyze() {
   }
 
   function printReport(report) {
-    console.log("\n=== Analysis Report ===");
+    console.log("\n");
+    logger.highlight("=== Analysis Report ===");
     if (report.securityFindings.length > 0) {
       console.log("Security Findings:");
       report.securityFindings.forEach((f) => console.log("- ", f));
@@ -80,7 +81,8 @@ export async function analyze() {
       console.log("No major security issues detected in dev server setup");
     }
 
-    console.log("\nVulnerabilities:");
+    console.log("\n");
+    logger.warning("Vulnerabilities:");
     if (report.vulnerabilities.length > 0) {
       report.vulnerabilities.forEach((v) =>
         console.log(`- ${v.package}: ${v.severity} - ${v.advisory}`)
@@ -88,8 +90,9 @@ export async function analyze() {
     } else {
       console.log("No known vulnerabilities found.");
     }
-
-    console.log(`\nBuild Time: ${report.buildTime}ms`);
+    
+    console.log("\n");
+    logger.info(`Build Time: ${report.buildTime}ms`);
     console.log("Bundle Sizes:");
 
     Object.entries(report.bundleSizes).forEach((bundle, size) => {
@@ -98,7 +101,8 @@ export async function analyze() {
 
     console.log(`Memory Usage: ${report.memoryUsage} MB`);
 
-    console.log("\nSuggestions:");
+    console.log("\n");
+    logger.success("Suggestions:");
     if (report.suggestions.length > 0) {
       report.suggestions.forEach((s) => console.log("- ", s));
     } else {

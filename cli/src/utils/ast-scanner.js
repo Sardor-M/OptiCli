@@ -1,10 +1,15 @@
 import fs from "fs";
 import path from "path";
 import { parse } from "@babel/parser";
-import traverse from "@babel/traverse";
+// import traverse from "@babel/traverse";
+import * as BabelTraverse from "@babel/traverse";
+
+// here we decsrtucture the traverse(function) to real function
+const {
+  default: { default: traverse },
+} = BabelTraverse;
 
 // bu yerda ast scanner util methodni qo'shamiz
-
 export function analyzeSource() {
   const findings = [];
   const rootDir = process.cwd();
@@ -24,14 +29,14 @@ export function analyzeSource() {
     try {
       const ast = parse(code, {
         sourceType: "module",
-        plugins: ["jsx", "tyescript"],
+        plugins: ["jsx", "typescript"],
       });
 
       traverse(ast, {
         CallExpression(path) {
           if (path.node.callee.name === "eval") {
             findings.push(
-              `Potentiallu unsafe eval() in ${file} at line ${path.node.loc?.start.line}`
+              `Potentially unsafe eval() in ${file} at line ${path.node.loc?.start.line}`
             );
           }
         },
@@ -48,8 +53,9 @@ export function analyzeSource() {
         },
       });
 
-      // and we check for the too many console logs
-      const consoleLogs = (code.match("/console.log/g") || []).length;
+      // and we check for the too many console logs ( regex for console.logs )
+      const consoleLogs = (code.match(/console\.log/g) || []).length;
+
       if (consoleLogs > 10) {
         findings.push(
           `${file} has ${consoleLogs} console.log statements. Consider cleaning up logs.`
@@ -64,12 +70,17 @@ export function analyzeSource() {
 }
 
 function findAllFiles(dir, exts, result = []) {
-  fs.readFileSync(dir).forEach((item) => {
+  fs.readdirSync(dir).forEach((item) => {
+    if (["node_modules", ".git", "dist"].includes(item)) {
+      return;
+    }
+
     const filePath = path.join(dir, item);
     const stats = fs.statSync(filePath);
+
     if (stats.isDirectory()) {
       findAllFiles(filePath, exts, result);
-    } else if (exts.some((ext) => item.endWith(ext))) {
+    } else if (stats.isFile() && exts.some((ext) => item.endsWith(ext))) {
       result.push(filePath);
     }
   });

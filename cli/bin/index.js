@@ -66,7 +66,7 @@ function usage() {
 }
 
 main().catch((error) => {
-  logger.log("An unexpected error occured: ", error);
+  logger.error("An unexpected error occured: ", error);
   process.exit(1);
 });
 
