@@ -49,7 +49,7 @@ async function main() {
 }
 
 function usage() {
-  console.log(`${chalk.whiteBright("opti-cli [command] [options]")}
+  console.log(`${chalk.whiteBright("securely [command] [options]")}
     ${chalk.greenBright("Commands:")}
       test              \tRun full analysis (config, security, advanced checks, performance, etc.)
       audit             \tRun NPM vulnerability audit only
@@ -59,9 +59,9 @@ function usage() {
       --help   \tShow usage information
 
     Examples:
-      opti-cli test
-      opti-cli audit
-      opti-cli secure-check  
+      securely test
+      securely audit
+      securely secure-check  
   `);
 }
 

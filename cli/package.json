@@ -1,9 +1,9 @@
 {
-  "name": "opti-cli",
+  "name": "securely",
   "version": "1.0.0",
   "main": "index.js",
   "bin": {
-    "opti-cli": "./bin/index.js"
+    "securely": "./bin/index.js"
   },
   "type": "module",
   "scripts": {
@@ -18,6 +18,8 @@
   },
   "description": "",
   "dependencies": {
+    "@babel/parser": "^7.26.3",
+    "@babel/traverse": "^7.26.4",
     "ajv": "^8.17.1",
     "better-ajv-errors": "^1.2.0",
     "chalk": "^5.3.0",

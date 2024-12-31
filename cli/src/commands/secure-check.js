@@ -1,6 +1,7 @@
-import { logger } from "../../logger";
-import { detectConfig, parseConfig } from "../utils/config-parser";
-import { checkSecurityHeaders } from "../utils/security-headers";
+import { logger } from "../../logger.js";
+import { analyzeSource } from "../utils/ast-scanner.js";
+import { detectConfig, parseConfig } from "../utils/config-parser.js";
+import { checkSecurityHeaders } from "../utils/security-headers.js";
 
 export async function secureCheck() {
   logger.highlight("Running security checks ...");

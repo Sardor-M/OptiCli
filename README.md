@@ -1,12 +1,8 @@
-## OptiCli
+## Securely 
 
-I am working on project that will help developers to optimize and analzye their project's
-- security issues
-- performance pitfalls
+Securely is a CLI tool that helps developers to optimize and analyze their project's security issues and performance pitfalls more efficiently.
 
-more efficiently. 
-
-``The goal of this prpject to dive into CLI tooling uisng Node js and to learn how to build a CLI tool from scratch.``
+`` The goal of this project is to dive into CLI tooling using Node js and to learn how to build a CLI tool from scratch.``
 
 - CLI Argument Parsing,
 - Build and Measure Performance,

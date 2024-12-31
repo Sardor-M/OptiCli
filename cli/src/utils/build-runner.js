@@ -4,9 +4,8 @@ export default function runBuildAndMeasure(type) {
   const startMem = process.memoryUsage().heapUsed;
   const startTime = Date.now();
 
-  let buildCmd = (type === "webpack"
-    ? "npx webpack --mode production"
-    : "npx vite build");
+  let buildCmd =
+    type === "webpack" ? "npx webpack --mode production" : "npx vite build";
 
   return new Promise((resolve) => {
     const child = spawn(buildCmd, { shell: true });
